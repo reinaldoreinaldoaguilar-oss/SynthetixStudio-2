@@ -2,7 +2,6 @@ from commands.base_command import Command
 
 class HelpCommand(Command):
     def execute(self, *args):
-        # Usamos un string multilínea para formatear bien la tabla de ayuda
         help_text = """
 === Manual de Comandos (Synthetix Studio) ===
 
@@ -10,6 +9,7 @@ class HelpCommand(Command):
   mkdir <carpeta>     : Crea un nuevo directorio en el nivel actual.
   cd <carpeta>        : Cambia el directorio de trabajo (Usa '..' para subir).
   tree                : Imprime la estructura jerárquica del proyecto en preorden.
+  edit <archivo> <txt>: Crea/modifica un archivo físico y lo registra en el árbol.
 
 [Módulo 2: Evaluador de Expresiones]
   eval "<expresion>"  : Parsea y evalúa una expresión matemática en postorden.

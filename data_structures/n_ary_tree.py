@@ -3,7 +3,7 @@ from data_structures.n_ary_node import Node
 class NaryTree:
     def __init__(self):
         self.root = Node("root")
-        self.current = self.root # Puntero al directorio actual de trabajo
+        self.current = self.root
 
     def mkdir(self, folder_name):
         if folder_name in self.current.children:
