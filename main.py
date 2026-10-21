@@ -2,11 +2,12 @@ from command_invoker import CommandInvoker
 from data_structures.n_ary_tree import NaryTree
 from data_structures.expression_tree import ExpressionTree
 from data_structures.avl_tree import AVLTree
-from data_structures.b_tree import BTree # <--- Importación
+from data_structures.b_tree import BTree
 from commands.workspace_cmds import MkdirCommand, CdCommand, TreeCommand
 from commands.eval_cmd import EvalCommand
 from commands.dictionary_cmds import AddKeywordCommand, SuggestCommand
-from commands.search_cmds import IndexAllCommand, FindGlobalCommand # <--- Importación
+from commands.search_cmds import IndexAllCommand, FindGlobalCommand
+from commands.help_cmd import HelpCommand 
 
 def main():
     # 1. Inicializamos todas las estructuras del proyecto
@@ -25,13 +26,14 @@ def main():
     invoker.register("eval", EvalCommand(exp_tree))
     invoker.register("add-keyword", AddKeywordCommand(avl_tree))
     invoker.register("suggest", SuggestCommand(avl_tree))
-    
-    # Registrar comandos del Módulo 4
     invoker.register("index-all", IndexAllCommand(b_tree))
     invoker.register("find-global", FindGlobalCommand(b_tree))
+    
+    # Registrar el comando Help
+    invoker.register("help", HelpCommand())
 
     print("=== Synthetix Studio (Mini IDE) ===")
-    print("Comandos: mkdir, cd, tree, eval, add-keyword, suggest, index-all, find-global, exit\n")
+    print("Escribe 'help' para ver la lista de comandos disponibles, o 'exit' para salir.\n")
 
     # 4. Bucle principal
     while True:
