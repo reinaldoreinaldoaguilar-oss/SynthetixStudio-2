@@ -1,9 +1,4 @@
-class BTreeNode:
-    def __init__(self, leaf=False):
-        self.leaf = leaf
-        # Cada "clave" será un diccionario: {'token': 'variable1', 'locations': ['archivo:linea']}
-        self.keys = []
-        self.children = []
+from data_structures.b_tree_node import BTreeNode
 
 class BTree:
     def __init__(self, t=2):
