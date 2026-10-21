@@ -1,21 +1,25 @@
 from command_invoker import CommandInvoker
 from data_structures.n_ary_tree import NaryTree
+from data_structures.expression_tree import ExpressionTree
 from commands.workspace_cmds import MkdirCommand, CdCommand, TreeCommand
+from commands.eval_cmd import EvalCommand
 
 def main():
-    # 1. Inicializamos nuestro espacio de trabajo (el árbol N-ario)
+    # 1. Inicializamos las estructuras de datos (Árbol N-ario y Árbol Binario)
     workspace_tree = NaryTree()
+    exp_tree = ExpressionTree()
     
     # 2. Inicializamos el invocador de comandos
     invoker = CommandInvoker()
     
-    # 3. Registramos los comandos del Módulo 1 asociándolos a la palabra clave
+    # 3. Registramos los comandos del Módulo 1 y 2 asociándolos a la palabra clave
     invoker.register("mkdir", MkdirCommand(workspace_tree))
     invoker.register("cd", CdCommand(workspace_tree))
     invoker.register("tree", TreeCommand(workspace_tree))
+    invoker.register("eval", EvalCommand(exp_tree))
 
     print("=== Synthetix Studio (Mini IDE) ===")
-    print("Comandos: mkdir <nombre>, cd <nombre> (o cd ..), tree, exit\n")
+    print("Comandos: mkdir <nombre>, cd <nombre> (o cd ..), tree, eval \"<expresion>\", exit\n")
 
     # 4. Bucle principal de la CLI
     while True:
