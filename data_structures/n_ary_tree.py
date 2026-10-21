@@ -1,9 +1,4 @@
-class Node:
-    def __init__(self, name, is_file=False):
-        self.name = name
-        self.is_file = is_file
-        self.children = {} # Usamos diccionario para buscar hijos rápidamente en O(1)
-        self.parent = None
+from data_structures.n_ary_node import Node
 
 class NaryTree:
     def __init__(self):

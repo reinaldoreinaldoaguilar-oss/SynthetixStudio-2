@@ -1,10 +1,6 @@
 import re
+from data_structures.expression_node import Node
 
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
 
 class ExpressionTree:
     def __init__(self):
