@@ -1,32 +1,37 @@
 from command_invoker import CommandInvoker
 from data_structures.n_ary_tree import NaryTree
 from data_structures.expression_tree import ExpressionTree
-from data_structures.avl_tree import AVLTree # <--- Importación
+from data_structures.avl_tree import AVLTree
+from data_structures.b_tree import BTree # <--- Importación
 from commands.workspace_cmds import MkdirCommand, CdCommand, TreeCommand
 from commands.eval_cmd import EvalCommand
-from commands.dictionary_cmds import AddKeywordCommand, SuggestCommand # <--- Importación
+from commands.dictionary_cmds import AddKeywordCommand, SuggestCommand
+from commands.search_cmds import IndexAllCommand, FindGlobalCommand # <--- Importación
 
 def main():
-    # 1. Inicializamos las estructuras
+    # 1. Inicializamos todas las estructuras del proyecto
     workspace_tree = NaryTree()
     exp_tree = ExpressionTree()
-    avl_tree = AVLTree() # <--- Inicializar Árbol AVL
+    avl_tree = AVLTree()
+    b_tree = BTree(t=2) # t=2 asegura orden m=4 (max 3 claves)
     
     # 2. Inicializamos el invocador
     invoker = CommandInvoker()
     
-    # 3. Registramos comandos
+    # 3. Registramos todos los comandos
     invoker.register("mkdir", MkdirCommand(workspace_tree))
     invoker.register("cd", CdCommand(workspace_tree))
     invoker.register("tree", TreeCommand(workspace_tree))
     invoker.register("eval", EvalCommand(exp_tree))
-    
-    # Registrar nuevos comandos del Módulo 3
     invoker.register("add-keyword", AddKeywordCommand(avl_tree))
     invoker.register("suggest", SuggestCommand(avl_tree))
+    
+    # Registrar comandos del Módulo 4
+    invoker.register("index-all", IndexAllCommand(b_tree))
+    invoker.register("find-global", FindGlobalCommand(b_tree))
 
     print("=== Synthetix Studio (Mini IDE) ===")
-    print("Comandos: mkdir, cd, tree, eval, add-keyword, suggest, exit\n")
+    print("Comandos: mkdir, cd, tree, eval, add-keyword, suggest, index-all, find-global, exit\n")
 
     # 4. Bucle principal
     while True:
