@@ -15,14 +15,12 @@ class NaryTree:
         return f"Carpeta '{folder_name}' creada exitosamente."
 
     def cd(self, folder_name):
-        # Lógica para subir al padre
         if folder_name == "..":
             if self.current.parent is not None:
                 self.current = self.current.parent
                 return f"Directorio actual: {self.current.name}"
             return "Ya estás en la raíz (root)."
         
-        # Lógica para entrar a un hijo
         if folder_name in self.current.children and not self.current.children[folder_name].is_file:
             self.current = self.current.children[folder_name]
             return f"Directorio actual: {self.current.name}"
@@ -30,7 +28,6 @@ class NaryTree:
         return f"Error: Directorio '{folder_name}' no encontrado."
 
     def tree(self, node=None, indent=""):
-        # Recorrido en Preorden para imprimir la jerarquía visual
         if node is None:
             node = self.root
             
