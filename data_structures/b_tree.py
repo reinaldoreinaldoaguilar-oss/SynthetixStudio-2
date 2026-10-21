@@ -2,7 +2,6 @@ from data_structures.b_tree_node import BTreeNode
 
 class BTree:
     def __init__(self, t=2):
-        # t es el grado mínimo. Si m=4, el grado mínimo de hijos t=2 (max claves = 2*t - 1 = 3)
         self.root = BTreeNode(True)
         self.t = t
 
@@ -23,7 +22,6 @@ class BTree:
         return self.search(k, node.children[i])
 
     def insert(self, token, location):
-        # Si la palabra ya existe, solo agregamos la nueva ubicación a su lista
         existing = self.search(token)
         if existing:
             if location not in existing['locations']:
@@ -31,7 +29,6 @@ class BTree:
             return
 
         root = self.root
-        # Si la raíz está llena (3 claves para m=4)
         if len(root.keys) == (2 * self.t) - 1:
             temp = BTreeNode()
             self.root = temp
@@ -44,7 +41,7 @@ class BTree:
     def insert_non_full(self, node, token, location):
         i = len(node.keys) - 1
         if node.leaf:
-            node.keys.append(None) # Espacio extra
+            node.keys.append(None)
             while i >= 0 and token < node.keys[i]['token']:
                 node.keys[i + 1] = node.keys[i]
                 i -= 1

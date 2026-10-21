@@ -16,19 +16,18 @@ class ExpressionTree:
         # 1. Separamos números y símbolos matemáticos
         tokens = re.findall(r'\d+\.\d+|\d+|[+/*()-]', expression)
         
-        # 2. Convertimos a notación postfija (Algoritmo Shunting Yard)
         output = []
         operators = []
         for token in tokens:
-            if token.replace('.', '', 1).isdigit(): # Si es un número
+            if token.replace('.', '', 1).isdigit():
                 output.append(token)
             elif token == '(':
                 operators.append(token)
             elif token == ')':
                 while operators and operators[-1] != '(':
                     output.append(operators.pop())
-                if operators: operators.pop() # Quitamos el '('
-            else: # Es un operador (+, -, *, /)
+                if operators: operators.pop()
+            else:
                 while operators and operators[-1] != '(' and self.get_precedence(operators[-1]) >= self.get_precedence(token):
                     output.append(operators.pop())
                 operators.append(token)
@@ -36,14 +35,12 @@ class ExpressionTree:
         while operators:
             output.append(operators.pop())
 
-        # 3. Construimos el Árbol Binario
         stack = []
         for token in output:
             if token.replace('.', '', 1).isdigit():
                 # Las hojas siempre son los operandos (números)
                 stack.append(Node(token))
             else:
-                # Los nodos internos son los operadores
                 node = Node(token)
                 node.right = stack.pop()
                 node.left = stack.pop()
@@ -53,18 +50,14 @@ class ExpressionTree:
             self.root = stack.pop()
 
     def _evaluate_postorder(self, node):
-        # Condición base: si está vacío
         if node is None: return 0
             
-        # Si es un nodo hoja (número), retornamos su valor
         if node.left is None and node.right is None:
             return float(node.value)
             
-        # Recorrido en Postorden: Izquierda -> Derecha -> Raíz
         left_val = self._evaluate_postorder(node.left)
         right_val = self._evaluate_postorder(node.right)
         
-        # Aplicamos el operador (Raíz)
         if node.value == '+': return left_val + right_val
         if node.value == '-': return left_val - right_val
         if node.value == '*': return left_val * right_val
